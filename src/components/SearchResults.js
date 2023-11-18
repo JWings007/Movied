@@ -65,20 +65,6 @@ function SearchResults(props) {
           </div>
         );
       })}
-      {/* <div className="result" onClick={()=> navigate(`/tv/${m.id}`)}>
-            <p>Snowdrop</p>
-            <span className="result-date">31-1-1003</span>
-
-          </div>
-      <div className="result" onClick={()=> navigate(`/tv/${m.id}`)}>
-            <p>Snowdrop</p>
-            <span className="result-date">31-1-1003</span>
-          </div>
-      <div className="result" onClick={()=> navigate(`/tv/${m.id}`)}>
-            <p>Snowdrop</p>
-            <span className="result-date">31-1-1003</span>
-            <span className="result-type">In Tv series <i className="fa-solid fa-tv"></i></span>
-          </div> */}
     </div>
   );
 }

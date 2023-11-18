@@ -8,6 +8,7 @@ function Navbar() {
   const [searchMovieResults, setSearchMovieResults] = useState([]);
   const [searchTvResults, setSearchTvResults] = useState([]);
   const [type, setType] = useState("movie");
+  const hamMenu = document.querySelector(".ham-container");
   const navigate = useNavigate();
   const tvList = [
     {
@@ -94,6 +95,13 @@ function Navbar() {
         />
         <i className="fa-solid fa-magnifying-glass search-icon"></i>
       </div>
+      <i
+            className="fa-solid fa-bars"
+            id="ham-icon"
+            onClick={() => {
+              hamMenu.classList.toggle("close");
+            }}
+          ></i>
       <div className="main-toggle">
         <button
           className="movie-btn"
@@ -138,6 +146,16 @@ function Navbar() {
             })}
       </select>
       <SearchResults movie={searchMovieResults} tv={searchTvResults} />
+      <div className="ham-container">
+          <h1>Movies</h1>
+          {movieList?.map((m, i) => {
+            return <p key={i} onClick={()=> navigate(`/movie/${m.type}/list`)}>{m.title}</p>;
+          })}
+          <h1>Tv shows</h1>
+          {tvList?.map((m, i) => {
+            return <p key={i} onClick={()=> navigate(`/tv/${m.type}/list`)}>{m.title}</p>;
+          })}
+        </div>
     </div>
   );
 }

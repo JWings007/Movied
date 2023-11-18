@@ -16,6 +16,7 @@ function Home() {
   const [type, setType] = useState("movie");
   const navigate = useNavigate();
   const randomNumber = Math.floor(Math.random() * 11);
+  const hamMenu = document.querySelector(".ham-container");
   const tvList = [
     {
       type: "airing_today",
@@ -145,6 +146,14 @@ function Home() {
           />
           <i className="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
+        <i
+            className="fa-solid fa-bars"
+            id="ham-icon"
+            onClick={() => {
+              hamMenu.classList.toggle("close");
+            }}
+          ></i>
+
         <div className="main-toggle">
           <button
             className="movie-btn"
@@ -189,6 +198,16 @@ function Home() {
               })}
         </select>
         <SearchResults movie={searchMovieResults} tv={searchTvResults} />
+        <div className="ham-container">
+          <h1>Movies</h1>
+          {movieList?.map((m, i) => {
+            return <p key={i} onClick={()=> navigate(`/movie/${m.type}/list`)}>{m.title}</p>;
+          })}
+          <h1>Tv shows</h1>
+          {tvList?.map((m, i) => {
+            return <p key={i} onClick={()=> navigate(`/tv/${m.type}/list`)}>{m.title}</p>;
+          })}
+        </div>
       </div>
       <div className="hero-section">
         <img
