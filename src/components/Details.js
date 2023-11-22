@@ -15,16 +15,22 @@ function Details() {
   const [movieBackdrops, setMovieBackdrops] = useState([]);
   const [moviePosters, setMoviePosters] = useState([]);
   const [movieVideo, setMovieVideo] = useState("");
+  const [loaderWidth, setLoaderWidth] = useState(0);
   const [keywords, setKeywords] = useState([]);
   const [clickedImage, setClickedImage] = useState("");
-
   let mId = useParams();
   const navigate = useNavigate();
   useEffect(() => {
+    const searchR = document.querySelector(".search-results")
+    searchR.style.display = "none"
+    setLoaderWidth(0)
     try {
+      setLoaderWidth(20)
       apis.fatchDetails(mId.categ, mId.id).then((Response) => {
+        setLoaderWidth(50)
         setMovie(Response);
         setMovieGenre(Response.genres);
+        setLoaderWidth(100)
       });
       apis.fatchCrew(mId.categ, mId.id).then((Response) => {
         setMovieCast(Response.cast);
@@ -41,6 +47,7 @@ function Details() {
       apis.fatchKeywords(mId.categ, mId.id).then((Response) => {
         setKeywords(Response.keywords || Response.results);
       });
+      
       apis.fatchVideo(mId.categ, mId.id).then((Response) => {
         setMovieVideo(
           Response.results.length != 0
@@ -65,7 +72,7 @@ function Details() {
 
   return (
     <>
-      <Navbar />
+      <Navbar loaderWidth={loaderWidth}/>
       <div className="details-container">
         <ImageViewer src={clickedImage} />
         <div className="img-container">
@@ -140,7 +147,7 @@ function Details() {
             <br />
             <div className="main-divider"></div>
             <div className="main-gallery">
-              <h1>Gallery</h1>
+              <h2>Gallery</h2>
               <div className="gallery-img">
                 {movieBackdrops.slice(0, 7).map((image, i) => {
                   return (
@@ -169,7 +176,7 @@ function Details() {
             </div>
           </div>
           <div className="main-casts">
-            <h1>Cast</h1>
+            <h2>Cast</h2>
             {movieCast.slice(0, 4).map((crew, i) => {
               return (
                 <div
@@ -177,10 +184,12 @@ function Details() {
                   key={i}
                   onClick={() => navigate(`/person/${crew.id}`)}
                 >
+                <div className="cast-img-detail">
                   <img
                     src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${crew.profile_path}`}
                     alt=""
                   />
+                </div>
                   <p>{crew.original_name}</p>
                 </div>
               );
@@ -198,7 +207,7 @@ function Details() {
           </div>
         </div>
         <div className="trailer-main">
-          <h1>Trailer</h1>
+          <h2>Trailer</h2>
           <iframe
             width="560"
             height="315"
@@ -214,7 +223,7 @@ function Details() {
           {mId.categ == "movie" ? (
             <div className="tech-details">
               <div className="tech-details-1">
-                <h1>Technical Details</h1>
+                <h2>Technical Details</h2>
                 <span className="span-head">Language : </span>
                 <span className="gold-text">
                   {movie.original_language?.toUpperCase()}
@@ -228,7 +237,7 @@ function Details() {
               </div>
               <div className="main-divider"></div>
               <div className="tech-details-2">
-                <h1>Box office</h1>
+                <h2>Box office</h2>
                 <span className="span-head">Budget : </span>
                 <span className="gold-text">{movie?.budget + "$"}</span>
                 <br />
@@ -236,7 +245,7 @@ function Details() {
                 <span className="gold-text">{movie?.revenue + "$"}</span>
               </div>
               <div className="tech-details-3">
-                <h1>Keywords</h1>
+                <h2>Keywords</h2>
                 {keywords?.map((key, i) => {
                   return <p key={i}>{key.name}</p>;
                 })}
@@ -244,7 +253,7 @@ function Details() {
             </div>
           ) : (
             <div className="tech-details">
-              <h1>Details</h1>
+              <h2>Details</h2>
               <span className="span-head">First air date : </span>
               <span className="gold-text">{movie?.first_air_date}</span>
               <br />
@@ -262,7 +271,7 @@ function Details() {
                 {movie?.last_episode_to_air?.name}
               </span>
               <br />
-              <h1>Seasons</h1>
+              <h2>Seasons</h2>
               <div className="seasons-container">
                 {movie?.seasons?.slice(0, 5)?.map((s, i) => {
                   return (
@@ -285,7 +294,7 @@ function Details() {
                 })}
               </div>
               <div className="tech-details-3">
-                <h1>Keywords</h1>
+                <h2>Keywords</h2>
                 {keywords?.map((key, i) => {
                   return <p key={i}>{key.name}</p>;
                 })}
@@ -294,7 +303,7 @@ function Details() {
           )}
 
           <div className="more-posters">
-            <h1>Posters</h1>
+            <h2>Posters</h2>
             <div className="poster-collection">
               {moviePosters.slice(0, 7).map((image, i) => {
                 return (

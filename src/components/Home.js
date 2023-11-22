@@ -13,6 +13,7 @@ function Home() {
   const [searchMovieResults, setSearchMovieResults] = useState([]);
   const [searchTvResults, setSearchTvResults] = useState([]);
   const [movieVideo, setMovieVideo] = useState("");
+  const [loaderWidth, setLoaderWidth] = useState(0);
   const [type, setType] = useState("movie");
   const navigate = useNavigate();
   const randomNumber = Math.floor(Math.random() * 11);
@@ -78,12 +79,23 @@ function Home() {
       tvBtn.style.color = "white";
       movieBtn.style.color = "black";
     });
-
+    setLoaderWidth(30);
     apis.fatchTails("movie", "popular").then((Response) => {
+      setLoaderWidth(50);
       setRandomM(Response.results[randomNumber]);
       setRandomId(Response.results[randomNumber].id);
+      setLoaderWidth(100);
     });
   }, [Response.results]);
+
+  useEffect(() => {
+    const loader = document.querySelector(".loader");
+    setInterval(() => {
+      loader.style.width == "100%"
+        ? (loader.style.display = "none")
+        : (loader.style.display = "block");
+    }, 1000);
+  }, [loaderWidth]);
 
   useEffect(() => {
     apis.fatchCrew("movie", randomId).then((Response) => {
@@ -130,6 +142,7 @@ function Home() {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           id="video-main"
+          style={{}}
         ></iframe>
       </div>
       <div className="navbar">
@@ -147,12 +160,12 @@ function Home() {
           <i className="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
         <i
-            className="fa-solid fa-bars"
-            id="ham-icon"
-            onClick={() => {
-              hamMenu.classList.toggle("close");
-            }}
-          ></i>
+          className="fa-solid fa-bars"
+          id="ham-icon"
+          onClick={() => {
+            hamMenu.classList.toggle("close");
+          }}
+        ></i>
 
         <div className="main-toggle">
           <button
@@ -201,13 +214,22 @@ function Home() {
         <div className="ham-container">
           <h1>Movies</h1>
           {movieList?.map((m, i) => {
-            return <p key={i} onClick={()=> navigate(`/movie/${m.type}/list`)}>{m.title}</p>;
+            return (
+              <p key={i} onClick={() => navigate(`/movie/${m.type}/list`)}>
+                {m.title}
+              </p>
+            );
           })}
           <h1>Tv shows</h1>
           {tvList?.map((m, i) => {
-            return <p key={i} onClick={()=> navigate(`/tv/${m.type}/list`)}>{m.title}</p>;
+            return (
+              <p key={i} onClick={() => navigate(`/tv/${m.type}/list`)}>
+                {m.title}
+              </p>
+            );
           })}
         </div>
+        <div className="loader" style={{ width: `${loaderWidth}%` }}></div>
       </div>
       <div className="hero-section">
         <img
@@ -234,14 +256,27 @@ function Home() {
           >
             {randomM?.original_title}
           </h1>
+          <span className="s-title"></span>
 
           <div className="hero-main-details">
             <span className="release-date">{randomM?.release_date}</span>
             <span className="running-time">2hr 30mins</span>
             <span className="genere">Action</span>
+            <div className="s-extra-main">
+              <span className="s-extra"></span>
+              <span className="s-extra"></span>
+              <span className="s-extra"></span>
+            </div>
           </div>
 
           <p className="hero-description">{randomM?.overview}</p>
+          <div className="s-despn">
+            <div className="s-line"></div>
+            <div className="s-line"></div>
+            <div className="s-line"></div>
+            <div className="s-line"></div>
+            <div className="s-line-half"></div>
+          </div>
           <div className="hero-btns">
             <span>
               <button

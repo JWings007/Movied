@@ -20,7 +20,11 @@ function SearchResults(props) {
           <div
             className="result"
             key={i}
-            onClick={() => navigate(`/movie/${m.id}`)}
+            onClick={() => {navigate(`/movie/${m.id}`)
+            const input = document.getElementById("main-searchbox")
+            input.value  = ""
+            }
+            }
           >
             <div className="result-1">
               <p>{m?.title}</p>
@@ -45,7 +49,10 @@ function SearchResults(props) {
           <div
             className="result"
             key={i}
-            onClick={() => navigate(`/tv/${m.id}`)}
+            onClick={() => {navigate(`/tv/${m.id}`)
+            const input = document.getElementById("main-searchbox")
+            input.value  = ""
+            }}
           >
             <div className="result-1">
               <p>{m?.name}</p>

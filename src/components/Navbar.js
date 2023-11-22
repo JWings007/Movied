@@ -3,7 +3,7 @@ import { apis } from "../api/apiFatcher";
 import SearchResults from "./SearchResults";
 import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar(props) {
   const [searchText, setSearchText] = useState("");
   const [searchMovieResults, setSearchMovieResults] = useState([]);
   const [searchTvResults, setSearchTvResults] = useState([]);
@@ -64,7 +64,7 @@ function Navbar() {
       setSearchTvResults(Response.results);
     });
   }, [searchText]);
-  useEffect(()=> {
+  useEffect(() => {
     const movieBtn = document.querySelector(".movie-btn");
     const tvBtn = document.querySelector(".tv-btn");
     const slider = document.querySelector(".slider");
@@ -79,84 +79,110 @@ function Navbar() {
       tvBtn.style.color = "white";
       movieBtn.style.color = "black";
     });
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const loader = document.querySelector(".loader-navbar");
+    setInterval(() => {
+      loader.style.width == "100%"
+        ? (loader.style.display = "none")
+        : (loader.style.display = "block");
+    }, 1500);
+  }, [props.loaderWidth]);
   return (
-    <div className="navbar">
-      <div className="logo" onClick={() => navigate("/")}>
-        <h2>MOVIED</h2>
-      </div>
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Search Movies, TV Shows..."
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        />
-        <i className="fa-solid fa-magnifying-glass search-icon"></i>
-      </div>
-      <i
-            className="fa-solid fa-bars"
-            id="ham-icon"
-            onClick={() => {
-              hamMenu.classList.toggle("close");
+    <>
+      <div className="navbar">
+        <div className="logo" onClick={() => navigate("/")}>
+          <h2>MOVIED</h2>
+        </div>
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search Movies, TV Shows..."
+            onChange={(e) => {
+              const searchR = document.querySelector(".search-results");
+              searchR.style.display = "block";
+              setSearchText(e.target.value);
             }}
-          ></i>
-      <div className="main-toggle">
-        <button
-          className="movie-btn"
+            id="main-searchbox"
+          />
+          <i className="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+        <i
+          className="fa-solid fa-bars"
+          id="ham-icon"
           onClick={() => {
-            setType("movie");
+            hamMenu.classList.toggle("close");
           }}
+        ></i>
+        <div className="main-toggle">
+          <button
+            className="movie-btn"
+            onClick={() => {
+              setType("movie");
+            }}
+          >
+            MOVIES
+          </button>
+          <button
+            className="tv-btn"
+            onClick={() => {
+              setType("tv");
+            }}
+          >
+            TV SHOWS
+          </button>
+          <span className="slider"></span>
+        </div>
+        <select
+          name="languages"
+          id="lang"
+          onChange={(e) => navigate(`/${type}/${e.target.value}/list`)}
         >
-          MOVIES
-        </button>
-        <button
-          className="tv-btn"
-          onClick={() => {
-            setType("tv");
-          }}
-        >
-          TV SHOWS
-        </button>
-        <span className="slider"></span>
-      </div>
-      <select
-        name="languages"
-        id="lang"
-        onChange={(e) => navigate(`/${type}/${e.target.value}/list`)}
-      >
-        <option value="none" selected disabled hidden>
-          Select an Option
-        </option>
-        {type == "movie"
-          ? movieList.map((opt, i) => {
-              return (
-                <option value={opt.type} key={i}>
-                  {opt.title}
-                </option>
-              );
-            })
-          : tvList.map((opt, i) => {
-              return (
-                <option value={opt.type} key={i}>
-                  {opt.title}
-                </option>
-              );
-            })}
-      </select>
-      <SearchResults movie={searchMovieResults} tv={searchTvResults} />
-      <div className="ham-container">
+          <option value="none" selected disabled hidden>
+            Select an Option
+          </option>
+          {type == "movie"
+            ? movieList.map((opt, i) => {
+                return (
+                  <option value={opt.type} key={i}>
+                    {opt.title}
+                  </option>
+                );
+              })
+            : tvList.map((opt, i) => {
+                return (
+                  <option value={opt.type} key={i}>
+                    {opt.title}
+                  </option>
+                );
+              })}
+        </select>
+        <SearchResults movie={searchMovieResults} tv={searchTvResults} />
+        <div className="ham-container">
           <h1>Movies</h1>
           {movieList?.map((m, i) => {
-            return <p key={i} onClick={()=> navigate(`/movie/${m.type}/list`)}>{m.title}</p>;
+            return (
+              <p key={i} onClick={() => navigate(`/movie/${m.type}/list`)}>
+                {m.title}
+              </p>
+            );
           })}
           <h1>Tv shows</h1>
           {tvList?.map((m, i) => {
-            return <p key={i} onClick={()=> navigate(`/tv/${m.type}/list`)}>{m.title}</p>;
+            return (
+              <p key={i} onClick={() => navigate(`/tv/${m.type}/list`)}>
+                {m.title}
+              </p>
+            );
           })}
         </div>
-    </div>
+        <div
+          className="loader-navbar"
+          style={{ width: `${props.loaderWidth}%` }}
+        ></div>
+      </div>
+    </>
   );
 }
 

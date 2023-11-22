@@ -11,6 +11,10 @@ body {
   scroll-behavior: smooth;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 
 /* -------Homepage------- */
 
@@ -196,7 +200,7 @@ option {
 }
 
 .hero-title {
-    font-size: 50px;
+    font-size: 35px;
     width: 86%;
 }
 
@@ -355,7 +359,7 @@ option {
 
 .tail-utils h1 {
     color: white;
-    font-size: 30px;
+    font-size: 27px;
 }
 
 .tails {
@@ -620,6 +624,10 @@ nav p:hover {
     margin-top: 68px;
   }
 
+  .img-container {
+    position: relative;
+  }
+
   .more-posters h1 {
     color: white;
   }
@@ -628,7 +636,6 @@ nav p:hover {
     width: 100%;
     height: 70vh;
     object-fit: cover;
-    position: relative;
     filter: blur(4px);
   }
 
@@ -647,6 +654,8 @@ nav p:hover {
     background-color: #282B3F;
     padding: 30px 30px;
     z-index: 22;
+    gap: 10px;
+    flex-wrap: wrap;
   }
   .detail-head {
     width: 48%;
@@ -698,7 +707,7 @@ nav p:hover {
     margin-top: 30px;
   }
 
-  .main-gallery h1 {
+  .main-gallery h2 {
     color: white;
     margin-bottom: 20px;
   }
@@ -726,7 +735,7 @@ nav p:hover {
     padding: 30px;
   }
 
-  .main-casts h1 {
+  .main-casts h2 {
     color: white;
     margin-bottom: 20px;
   }
@@ -768,7 +777,7 @@ nav p:hover {
     height: fit-content;
   }
 
-  .trailer-main h1 {
+  .trailer-main h2 {
     color: white;
     margin-bottom: 20px;
   }
@@ -790,7 +799,7 @@ nav p:hover {
     padding: 30px;
   }
 
-  .tech-details h1 {
+  .tech-details h2 {
     color: white;
     margin-bottom: 20px;
   }
@@ -1192,6 +1201,14 @@ nav p:hover {
     display: none;
   }
 
+  #ham-icon:hover {
+    cursor: pointer;
+  }
+
+  .ham-container p {
+    cursor: pointer;
+  }
+
 
 
   /* ------Responsiveness----- */
@@ -1199,17 +1216,18 @@ nav p:hover {
   .ham-container {
     background-color: #383B4D;
     position: absolute;
-    display: none;
     top: 68px;
     right: 0;
     width: 50%;
     padding: 30px;
     height: fit-content;
     padding-top: 30px;
+    transform: translateX(100%);
+    transition: all .5s ease;
   }
 
   .close {
-    display: block;
+    transform: translate(0);
   }
 
   .ham-container h1 {
@@ -1238,6 +1256,14 @@ nav p:hover {
       font-size: 20px;
     }
 
+    .person-details p {
+      font-size: 0.8em;
+    }
+
+    .main-person-container img {
+      width: 180px;
+    }
+
     .main-toggle {
       display: none;
     }
@@ -1246,7 +1272,12 @@ nav p:hover {
       display: none;
     }
     .search-box input {
-      width: 250px;
+      width: 52vw;
+      font-size: 0.7em;
+        }
+
+    .search-icon {
+      padding-right: 10px;
     }
 
     .movie-details {
@@ -1338,6 +1369,37 @@ nav p:hover {
       font-size: 13px;
     }
 
+    .hero-section {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+
+    .poster {
+      margin: 0;
+      width: 65%;
+    }
+
+    .movie-details {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .movie-details h1 {
+      text-align: center;
+    }
+
+    .hero-more-btn {
+      display: none;
+    }
+
+    .hero-btns {
+      gap: 0;
+    }
+
     /* -----Tails----- */
 
 
@@ -1346,8 +1408,8 @@ nav p:hover {
       display: flex;
       flex-direction: column;
       background-color: #383B4D;
-      margin: 20px;
       padding: 10px;
+      margin: 20px;
       position: relative;
     }
 
@@ -1383,16 +1445,24 @@ nav p:hover {
       height: 60vh;
     }
 
+    .span-head {
+      font-size: 0.8em;
+    }
+
+    .gold-text {
+      font-size: 0.8em;
+    }
+
     .main-casts {
       padding: 20px;
     }
 
     .main-poster {
-      top: 3%;
+      top: 20%;
     }
 
     .detail-head h1 {
-      font-size: 18px;
+      font-size: 1.5em;
     }
 
     .detail-head {
@@ -1410,8 +1480,15 @@ nav p:hover {
       display: inline;
     }
 
+    .detail:last-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
     .detail p {
-      font-size: 10px;
+      font-size: 0.8em;
     }
 
     .movie-details-main {
@@ -1419,6 +1496,7 @@ nav p:hover {
       justify-content: space-evenly;
       flex-wrap: wrap;
       align-items: center;
+      gap: 1em;
     }
 
     .star-img {
@@ -1438,6 +1516,7 @@ nav p:hover {
 
     .description p {
       width: 100%;
+      font-size: 0.8em;
     }
 
     .gallery-img {
@@ -1505,13 +1584,17 @@ nav p:hover {
     /* ------Backdrop List------ */
 
     .image-list-container {
-      margin-left: 20px;
-      margin-right: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     .image-list-wrapper img {
-      width: 200px;
-      margin: 10px;
+      width: 157px;
+      margin: 10px 10px 0 10px;
+    }
+
+    .image-list-wrapper {
+      padding-bottom: 10px;
     }
 
     /* ----Poster List---- */
@@ -1520,14 +1603,16 @@ nav p:hover {
       display: flex;
       flex-direction: column;
       padding: 20px;
-      margin: 0;
+      margin: 0 20px 0 20px;
       align-items: center;
-      padding-top: 10px;
+      padding-top: 20px;
+    }
+
+    .crew-head {
+      margin-left: 18px;
     }
 
     .person-container {
-      margin-left: 20px;
-      margin-right: 20px;
       justify-content: space-between;
       /* gap: 30px; */
     }
@@ -1541,7 +1626,7 @@ nav p:hover {
     }
 
     .other-person-info {
-      margin: 0;
+      margin: 0 20px 0 20px;
       padding: 20px;
       margin-top: 20px;
       margin-bottom: 0;
@@ -1577,4 +1662,151 @@ nav p:hover {
       font-size: 10px;
     }
 
+    .footer {
+      padding: 10px;
+    }
+
+    .footer p {
+      font-size: 0.8em;
+    }
+
+    .movie {
+      max-width: 119px;
+      padding: 10px;
+      margin: 5px;
+    }
+
+    .movie img {
+      max-width: 100px;
+    }
+
+    .movie-list-container {
+      padding: 5px;
+    }
+
+    .cast-head {
+      margin-left: 15px; ;
+    }
+
+    .full-image-container iframe {
+      width: 90%;
+      height: 40%;
+    }
+
+    .person-details h1 {
+      font-size: 1.5em;
+    }
+
+    .person-details h2 {
+      font-size: 1.4em;
+    }
+
+  }
+
+  @media screen and (max-width:330px) {
+    .search-icon {
+      font-size: 10px;
+    }
+
+    .search-box input {
+      padding-left: 10px;
+    }
+
+    .cast-img-detail img{
+      width: 70px;
+      height: 70px;
+    }
+
+    .image-list-wrapper img {
+      width: 125px;
+    }
+
+    .image-list-container h1 {
+      font-size: 1.5em;
+    }
+
+    .main-cast p {
+      font-size: 0.8em;
+    }
+
+    .hero-section {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+
+    .poster {
+      margin: 0;
+      width: 65%;
+    }
+
+    .movie-details {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .movie-details h1 {
+      text-align: center;
+    }
+
+    .hero-more-btn {
+      display: none;
+    }
+
+    .hero-btns {
+      gap: 0;
+    }
+
+    .result-1 p {
+      font-size: 13px;
+      width: 56%;
+      margin-right: 0;
+    }
+
+    .result-date {
+      font-size: 12px;
+    }
+
+    .result-type, .result-language {
+      font-size: 10px;
+    }
+
+    .ham-container {
+      width: 65%;
+    }
+
+    .result {
+      padding: 5px 7px;
+    }
+
+    .result-date {
+      margin-right: 0;
+    }
+
+    .tech-details-3 p {
+      font-size: 0.8em;
+    }
+  }
+
+  .loader {
+    height: 4px;
+    background-color: #FFC632;
+    box-shadow: 0px 0px 7px #FFC632;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: all .3s ease;
+  }
+
+  .loader-navbar {
+    height: 4px;
+    background-color: #FFC632;
+    box-shadow: 0px 0px 7px #FFC632;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: all .3s ease;
   }
