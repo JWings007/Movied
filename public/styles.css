@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 body {
   scroll-behavior: smooth;
 }
